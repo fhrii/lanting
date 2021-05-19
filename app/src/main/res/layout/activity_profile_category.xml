@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".ui.profilecategory.ProfileCategoryActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_choose_category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:shadowColor="@color/green_dark"
+        android:shadowDx="10"
+        android:shadowDy="7"
+        android:shadowRadius="10"
+        android:text="@string/choose_your_role"
+        android:textColor="@color/green_dark"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="@id/btn_bumil"
+        app:layout_constraintStart_toStartOf="@id/btn_baduta"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_baduta"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_btn_green_dark"
+        app:layout_constraintEnd_toStartOf="@id/btn_bumil"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_choose_category" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_baduta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/baduta"
+        android:textColor="@color/green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_baduta"
+        app:layout_constraintStart_toStartOf="@id/btn_baduta"
+        app:layout_constraintTop_toBottomOf="@id/btn_baduta" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_bumil"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginHorizontal="12dp"
+        android:background="@drawable/bg_btn_green_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_baduta"
+        app:layout_constraintTop_toTopOf="@id/btn_baduta" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_bumil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/bumil"
+        android:textColor="@color/green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_bumil"
+        app:layout_constraintStart_toStartOf="@id/btn_bumil"
+        app:layout_constraintTop_toBottomOf="@id/btn_bumil" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_busui"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_btn_green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_baduta"
+        app:layout_constraintStart_toStartOf="@id/btn_baduta"
+        app:layout_constraintTop_toBottomOf="@id/btn_baduta" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_busui"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/busui"
+        android:textColor="@color/green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_busui"
+        app:layout_constraintStart_toStartOf="@id/btn_busui"
+        app:layout_constraintTop_toBottomOf="@id/btn_busui" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_ibu"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/bg_btn_green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_bumil"
+        app:layout_constraintStart_toStartOf="@id/btn_bumil"
+        app:layout_constraintTop_toTopOf="@id/btn_busui" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_ibu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/ibu"
+        android:textColor="@color/green_dark"
+        app:layout_constraintEnd_toEndOf="@id/btn_ibu"
+        app:layout_constraintStart_toStartOf="@id/btn_ibu"
+        app:layout_constraintTop_toBottomOf="@id/btn_ibu" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        style="@style/Theme.Lanting.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/next"
+        app:layout_constraintEnd_toEndOf="@id/tv_ibu"
+        app:layout_constraintTop_toBottomOf="@id/tv_ibu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Lanting</string>
+    <string name="lets_start">let\'s start it.</string>
+    <string name="join_us">Join us to reduce the number of "stunting" sufferers in Indonesia.</string>
+    <string name="get_started">Get Started</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="login_google">Login with Google</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="food_allergy">Food Allergy</string>
+    <string name="next">Next</string>
+    <string name="create">Create</string>
+    <string name="profile">Profile</string>
+    <string name="new_profile">New Profile</string>
+    <string name="choose_your_role">Choose your role.</string>
+    <string name="baduta">Baduta</string>
+    <string name="ibu">Ibu</string>
+    <string name="busui">Busui</string>
+    <string name="bumil">Bumil</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="field_error">You have to fill this field</string>
+    <string name="choose_photo">Choose</string>
+    <string name="choose_photo_camera">Take photo</string>
+    <string name="choose_photo_gallery">Choose from gallery</string>
+    <string name="menu_change_profile">Change profile</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_language">Language</string>
+    <string name="hello_user">Hello, %s</string>
+    <string name="did_you_know">Do you know about “stunting” case in Indonesia?</string>
+    <string name="learn_more">learn more</string>
+    <string name="tab_recipe_text_1">By Budget</string>
+    <string name="tab_recipe_text_2">By Recommended</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_budget_text">You will get some recipe by input your budget for get some combination recipe</string>
+    <string name="_30000">30000</string>
+    <string name="recipe_recommended_text">a collection of recipes that we recommend. swipe up for more</string>
+    <string name="article_text">Article that blablabla about stunting that you should know. Wanna see the article?</string>
+</resources>

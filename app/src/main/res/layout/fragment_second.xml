@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.getting.second.SecondFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:shadowDy="10"
+        android:shadowDx="7"
+        android:shadowColor="@color/green_dark"
+        android:shadowRadius="10"
+        android:text="@string/lets_start"
+        android:textColor="@color/green_dark"
+        android:textSize="52sp"
+        app:layout_constraintBottom_toTopOf="@+id/img_mother"
+        app:layout_constraintEnd_toEndOf="@id/img_mother"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/img_mother"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_mother"
+        android:layout_width="300dp"
+        android:layout_height="375dp"
+        android:src="@drawable/img_mother_child"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_get_started"
+        style="@style/Theme.Lanting.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/get_started"
+        app:layout_constraintEnd_toEndOf="@id/img_mother"
+        app:layout_constraintStart_toStartOf="@id/img_mother"
+        app:layout_constraintTop_toBottomOf="@id/img_mother" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
