@@ -4,7 +4,6 @@
     package="academy.bangkit.lanting">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -18,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lanting">
-        <activity android:name=".ui.article.ArticleActivity"></activity>
+        <activity android:name=".ui.task.TaskActivity"></activity>
+        <activity android:name=".ui.article.ArticleActivity" />
         <activity android:name=".ui.recipe.RecipeActivity" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.profilecategory.ProfileCategoryActivity" />

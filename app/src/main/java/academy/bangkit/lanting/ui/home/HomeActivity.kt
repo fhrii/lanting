@@ -9,6 +9,7 @@ import academy.bangkit.lanting.databinding.NavHeaderHomeBinding
 import academy.bangkit.lanting.ui.article.ArticleActivity
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
 import academy.bangkit.lanting.ui.recipe.RecipeActivity
+import academy.bangkit.lanting.ui.task.TaskActivity
 import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ImageStorageManager
 import android.content.Intent
@@ -74,6 +75,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             btnArticle.setOnClickListener {
                 val mIntent = Intent(this@HomeActivity, ArticleActivity::class.java)
+                startActivity(mIntent)
+            }
+            btnTask.setOnClickListener {
+                val mIntent = Intent(this@HomeActivity, TaskActivity::class.java)
                 startActivity(mIntent)
             }
 
