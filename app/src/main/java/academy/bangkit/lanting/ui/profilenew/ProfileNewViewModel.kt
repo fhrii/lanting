@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,8 +20,8 @@ class ProfileNewViewModel @Inject constructor(
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
 
-    private val _dateOfBirth = MutableLiveData<String>()
-    val dateOfBirth: LiveData<String> = _dateOfBirth
+    private val _dateOfBirth = MutableLiveData<Date>()
+    val dateOfBirth: LiveData<Date> = _dateOfBirth
 
     private val _height = MutableLiveData<Int>()
     val height: LiveData<Int> = _height
@@ -38,7 +39,7 @@ class ProfileNewViewModel @Inject constructor(
         _name.value = name
     }
 
-    fun setDateOfBirth(birth: String) {
+    fun setDateOfBirth(birth: Date) {
         _dateOfBirth.value = birth
     }
 

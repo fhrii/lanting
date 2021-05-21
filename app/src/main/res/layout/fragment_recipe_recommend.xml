@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.reciperecomend.RecipeRecomendFragment">
+    tools:context=".ui.reciperecommend.RecipeRecommendFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cream"
+        android:fillViewport="true"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,28 +55,13 @@
             android:layout_height="wrap_content"
             android:padding="24dp">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edt_budget"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recipes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit_text_budget"
-                android:hint="@string/_30000"
-                android:inputType="numberDecimal"
-                android:maxLines="1"
-                android:textColor="@color/cream"
-                app:layout_constraintEnd_toStartOf="@id/btn_search"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_search"
-                android:layout_width="54dp"
-                android:layout_height="0dp"
-                android:background="@drawable/bg_btn_search"
-                android:src="@drawable/ic_search"
-                app:layout_constraintBottom_toBottomOf="@id/edt_budget"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/edt_budget" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

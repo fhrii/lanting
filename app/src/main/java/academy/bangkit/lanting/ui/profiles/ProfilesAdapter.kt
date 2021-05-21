@@ -21,7 +21,7 @@ class ProfilesAdapter : RecyclerView.Adapter<ProfilesAdapter.ProfilesViewHolder>
         fun bind(profile: Profile) {
             with(binding) {
                 binding.tvProfileName.text = profile.name
-                binding.tvProfileCategory.text = profile.category
+                binding.tvProfileCategory.text = profile.category.name
 
                 profile.picture?.also {
                     val image =

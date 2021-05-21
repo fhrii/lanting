@@ -55,7 +55,7 @@ class ProfilesActivity : AppCompatActivity(), OnItemProfileClicked {
 
         viewModel.getProfiles().observe(this) {
             when (it) {
-                is ResultState.Success<List<Profile>> -> {
+                is ResultState.Success -> {
                     profilesAdapter.setProfiles(it.data)
                 }
                 is ResultState.Error -> {

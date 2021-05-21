@@ -28,8 +28,8 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.tvTitle.text = article.title
-            binding.tvDate.text = article.date
-            binding.imgMovie.setImageFromUrl(article.thumbnail)
+            binding.tvDesc.text = article.date
+            binding.imgThumbnail.setImageFromUrl(article.thumbnail)
 
             itemView.setOnClickListener {
                 val mIntent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))

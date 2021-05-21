@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 class ProfileCategoryActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileCategoryBinding
     private val viewModel: ProfileCategoryViewModel by viewModels()
-    private var category: String? = null
+    private var category: ProfileCategory? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

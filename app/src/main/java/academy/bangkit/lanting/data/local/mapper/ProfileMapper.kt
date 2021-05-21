@@ -1,5 +1,6 @@
-package academy.bangkit.lanting.data.local
+package academy.bangkit.lanting.data.local.mapper
 
+import academy.bangkit.lanting.data.local.entity.ProfileEntity
 import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.utils.EntityMapper
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class ProfileMapper @Inject constructor() : EntityMapper<ProfileEntity, Profile>
             entity.weight,
             entity.allergy,
             entity.category,
-            entity.picture
+            entity.picture,
         )
     }
 

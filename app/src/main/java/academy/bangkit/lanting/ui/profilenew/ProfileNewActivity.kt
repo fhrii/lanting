@@ -2,6 +2,7 @@ package academy.bangkit.lanting.ui.profilenew
 
 import academy.bangkit.lanting.R
 import academy.bangkit.lanting.data.model.Profile
+import academy.bangkit.lanting.data.model.ProfileCategory
 import academy.bangkit.lanting.databinding.ActivityProfileNewBinding
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
 import academy.bangkit.lanting.utils.DateHelper
@@ -33,7 +34,7 @@ class ProfileNewActivity : AppCompatActivity() {
     private lateinit var datePicker: DatePickerDialog.OnDateSetListener
 
     private lateinit var type: String
-    private var profileCategory: String? = null
+    private var profileCategory: ProfileCategory? = null
     private var profile: Profile? = null
 
     private val TAG = "ProfileNewActivity"
@@ -56,13 +57,12 @@ class ProfileNewActivity : AppCompatActivity() {
             myCalendar.set(Calendar.YEAR, year)
             myCalendar.set(Calendar.MONTH, month)
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val date = DateHelper.formatDateOfBirthToString(myCalendar.time)
-            viewModel.setDateOfBirth(date)
+            viewModel.setDateOfBirth(myCalendar.time)
         }
 
         type = intent.getStringExtra(EXTRA_TYPE) as String
         profile = intent.getParcelableExtra(EXTRA_PROFILE)
-        profileCategory = intent.getStringExtra(EXTRA_CATEGORY)
+        profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory?
 
         setDataFormListener()
         setObservers()
@@ -90,7 +90,7 @@ class ProfileNewActivity : AppCompatActivity() {
                     }
                 }
             }
-        } else profileCategory = intent.getStringExtra(EXTRA_CATEGORY)
+        } else profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory?
     }
 
     private fun showDatePickerDialog() {
@@ -163,7 +163,7 @@ class ProfileNewActivity : AppCompatActivity() {
 
             edtDate.setOnChangeListener {
                 if (!it.isNullOrEmpty()) {
-                    viewModel.setDateOfBirth(it)
+                    viewModel.setDateOfBirth(DateHelper.formatStringToDate(it))
                 }
             }
 
@@ -189,7 +189,7 @@ class ProfileNewActivity : AppCompatActivity() {
                 profile?.also { thisProfile ->
                     viewModel.deleteProfile(thisProfile) {
                         when (it) {
-                            is ResultState.Success<Boolean> -> {
+                            is ResultState.Success -> {
                                 finish()
                             }
                             is ResultState.Error -> {
@@ -238,7 +238,7 @@ class ProfileNewActivity : AppCompatActivity() {
                     if (type == TYPE_EDIT) {
                         profile?.also {
                             it.name = inputName
-                            it.dateOfBirth
+                            it.dateOfBirth = DateHelper.formatStringToDate(inputDate)
                             it.height = inputHeight.toInt()
                             it.weight = inputWeight.toInt()
                             it.allergy = if (inputAllergy.isEmpty()) null else inputAllergy
@@ -265,7 +265,7 @@ class ProfileNewActivity : AppCompatActivity() {
 
                             viewModel.updateProfile(it) { result ->
                                 when (result) {
-                                    is ResultState.Success<Boolean> -> {
+                                    is ResultState.Success -> {
                                         Log.d(TAG, "setDataFormListener: Success")
                                         finish()
                                     }
@@ -287,7 +287,7 @@ class ProfileNewActivity : AppCompatActivity() {
                         Profile(
                             0,
                             inputName,
-                            inputDate,
+                            DateHelper.formatStringToDate(inputDate),
                             inputHeight.toInt(),
                             inputWeight.toInt(),
                             if (inputAllergy.isEmpty()) null else inputAllergy,
@@ -300,7 +300,7 @@ class ProfileNewActivity : AppCompatActivity() {
 
                     viewModel.insertProfile(profile) {
                         when (it) {
-                            is ResultState.Success<Boolean> -> {
+                            is ResultState.Success -> {
                                 Log.d(TAG, "setDataFormListener: Success")
                                 val mIntent =
                                     Intent(this@ProfileNewActivity, ProfilesActivity::class.java)
@@ -330,7 +330,9 @@ class ProfileNewActivity : AppCompatActivity() {
         }
 
         viewModel.dateOfBirth.observe(this) {
-            if (it != binding.edtDate.text?.toString()) binding.edtDate.setText(it)
+            val dateOfBirth = DateHelper.formatDateToString(it)
+            if (dateOfBirth != binding.edtDate.text?.toString())
+                binding.edtDate.setText(dateOfBirth)
         }
 
         viewModel.height.observe(this) {

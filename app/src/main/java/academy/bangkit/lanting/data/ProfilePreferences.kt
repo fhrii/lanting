@@ -2,6 +2,7 @@ package academy.bangkit.lanting.data
 
 import academy.bangkit.lanting.data.model.Profile
 import android.content.Context
+import java.util.*
 
 class ProfilePreferences(context: Context) {
     companion object {
@@ -22,11 +23,11 @@ class ProfilePreferences(context: Context) {
         with(preferences.edit()) {
             putInt(id, profile.id)
             putString(name, profile.name)
-            putString(dateOfBirth, profile.dateOfBirth)
+            putLong(dateOfBirth, profile.dateOfBirth.time)
             putInt(height, profile.height)
             putInt(weight, profile.weight)
             putString(allergy, profile.allergy)
-            putString(category, profile.category)
+            putString(category, profile.category.name)
             putString(picture, profile.picture)
             apply()
         }
@@ -40,11 +41,11 @@ class ProfilePreferences(context: Context) {
             return Profile(
                 preferences.getInt(id, 0),
                 name,
-                preferences.getString(dateOfBirth, "") as String,
+                Date(preferences.getLong(dateOfBirth, 0)),
                 preferences.getInt(height, 0),
                 preferences.getInt(weight, 0),
                 preferences.getString(allergy, null),
-                preferences.getString(category, "") as String,
+                enumValueOf(preferences.getString(category, "") as String),
                 preferences.getString(picture, null)
             )
         }

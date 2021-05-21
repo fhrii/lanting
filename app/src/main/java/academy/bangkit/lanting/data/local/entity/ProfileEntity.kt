@@ -1,11 +1,13 @@
-package academy.bangkit.lanting.data.local
+package academy.bangkit.lanting.data.local.entity
 
+import academy.bangkit.lanting.data.local.LantingDatabase
 import academy.bangkit.lanting.data.model.ProfileCategory
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = LantingDatabase.TABLE_PROFILE_NAME)
 data class ProfileEntity(
@@ -17,7 +19,7 @@ data class ProfileEntity(
 
     @NonNull
     @ColumnInfo(name = "date_of_birth")
-    val dateOfBirth: String,
+    val dateOfBirth: Date,
 
     @NonNull
     val height: Int,
@@ -29,7 +31,7 @@ data class ProfileEntity(
     val allergy: String?,
 
     @NonNull
-    val category: String,
+    val category: ProfileCategory,
 
     @Nullable
     val picture: String?
