@@ -7,6 +7,5 @@ data class Recipe(
     val nutrients: String,
     val seasonings: String?,
     val imageUrl: String,
-    val category: ProfileCategory,
     val price: Int
 )

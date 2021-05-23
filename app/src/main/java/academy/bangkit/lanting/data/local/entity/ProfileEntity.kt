@@ -34,5 +34,11 @@ data class ProfileEntity(
     val category: ProfileCategory,
 
     @Nullable
+    val babysBirthDate: Date?,
+
+    @Nullable
+    val gestationalAge: Int?,
+
+    @Nullable
     val picture: String?
 )

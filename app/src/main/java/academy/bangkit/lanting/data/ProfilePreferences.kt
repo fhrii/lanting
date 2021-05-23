@@ -14,6 +14,8 @@ class ProfilePreferences(context: Context) {
         private const val weight = "weight"
         private const val allergy = "allergy"
         private const val category = "category"
+        private const val babysBirthDate = "babys_birth_date"
+        private const val gestationalAge = "gestational_age"
         private const val picture = "picture"
     }
 
@@ -28,6 +30,8 @@ class ProfilePreferences(context: Context) {
             putInt(weight, profile.weight)
             putString(allergy, profile.allergy)
             putString(category, profile.category.name)
+            putLong(babysBirthDate, profile.babysBirthDate?.time ?: -1L)
+            putInt(gestationalAge, profile.gestationalAge ?: -1)
             putString(picture, profile.picture)
             apply()
         }
@@ -38,6 +42,9 @@ class ProfilePreferences(context: Context) {
             val name = preferences.getString(name, "")
             if (name.isNullOrEmpty()) return null
 
+            val babysBirthDateLong = preferences.getLong(babysBirthDate, -1L)
+            val gestationalAgeInt = preferences.getInt(gestationalAge, -1)
+
             return Profile(
                 preferences.getInt(id, 0),
                 name,
@@ -46,6 +53,8 @@ class ProfilePreferences(context: Context) {
                 preferences.getInt(weight, 0),
                 preferences.getString(allergy, null),
                 enumValueOf(preferences.getString(category, "") as String),
+                if(babysBirthDateLong != -1L) Date(babysBirthDateLong) else null,
+                if(gestationalAgeInt != -1) gestationalAgeInt else null,
                 preferences.getString(picture, null)
             )
         }

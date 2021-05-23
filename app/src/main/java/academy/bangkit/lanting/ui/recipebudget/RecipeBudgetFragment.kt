@@ -1,14 +1,20 @@
 package academy.bangkit.lanting.ui.recipebudget
 
 import academy.bangkit.lanting.data.ProfilePreferences
-import academy.bangkit.lanting.data.model.ProfileCategory
+import academy.bangkit.lanting.data.model.Recipe
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import academy.bangkit.lanting.databinding.FragmentRecipeBudgetBinding
-import academy.bangkit.lanting.utils.DummyData
+import academy.bangkit.lanting.ui.recipe.RecipeViewModel
+import academy.bangkit.lanting.utils.ResultState
+import academy.bangkit.lanting.utils.setOnChangeListener
+import academy.bangkit.lanting.utils.setVisible
+import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,9 +23,17 @@ import javax.inject.Inject
 class RecipeBudgetFragment : Fragment() {
     private lateinit var binding: FragmentRecipeBudgetBinding
     private lateinit var adapter: RecipeBudgetAdapter
+    private val viewModel: RecipeViewModel by activityViewModels()
+    private val recipeBudgetViewModel: RecipeBudgetViewModel by viewModels()
+
+    private var recipes: List<Recipe>? = null
 
     @Inject
     lateinit var profilePreferences: ProfilePreferences
+
+    companion object {
+        private const val TAG = "RecipeBudgetFragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +45,58 @@ class RecipeBudgetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = RecipeBudgetAdapter()
+        setDataLoading(true)
+        setAdapter()
+        setRecipes()
+        setBudget()
+    }
 
+    private fun setDataLoading(state: Boolean) {
+        binding.rvRecipes.setVisible(!state)
+        binding.pbLoading.setVisible(state)
+    }
+
+    private fun setAdapter() {
+        adapter = RecipeBudgetAdapter()
         binding.rvRecipes.layoutManager = LinearLayoutManager(this.context)
         binding.rvRecipes.adapter = adapter
+    }
 
-        val recipes = DummyData.getRecipes().filter {
-            val category =
-                if (profilePreferences.profile?.category == ProfileCategory.BADUTA) ProfileCategory.BADUTA else ProfileCategory.IBU
-            it.category == category
-        }.sortedBy { it.price }
+    private fun setRecipes() {
+        viewModel.recipes.observe(requireActivity()) { result ->
+            when (result) {
+                is ResultState.Success -> {
+                    recipeBudgetViewModel.setRecipes(result.data)
+                    recipes = result.data
+                    setDataLoading(false)
+                }
+                is ResultState.Error -> {
+                    Log.d(TAG, "setRecipes: ${result.exception}")
+                }
+                is ResultState.Loading -> {
+                    Log.d(TAG, "setRecipes: Loading")
+                }
+            }
+        }
 
-        adapter.setRecipes(recipes)
+        recipeBudgetViewModel.recipes.observe(this.viewLifecycleOwner) {
+            adapter.setRecipes(it)
+        }
+    }
+
+    private fun setBudget() {
+        binding.edtBudget.setOnChangeListener { budget ->
+            var newBudget = 0
+            if (!budget.isNullOrEmpty()) newBudget = budget.toInt()
+            recipeBudgetViewModel.setBudget(newBudget)
+            recipes?.filter { it.price <= newBudget }?.also { newRecipes ->
+                recipeBudgetViewModel.setRecipes(newRecipes)
+            }
+        }
+
+        recipeBudgetViewModel.budget.observe(this.viewLifecycleOwner) {
+            if (it.toString() != binding.edtBudget.text.toString())
+                binding.edtBudget.setText(it.toString())
+        }
     }
 }

@@ -15,6 +15,8 @@ class ProfileMapper @Inject constructor() : EntityMapper<ProfileEntity, Profile>
             entity.weight,
             entity.allergy,
             entity.category,
+            entity.babysBirthDate,
+            entity.gestationalAge,
             entity.picture,
         )
     }
@@ -28,6 +30,8 @@ class ProfileMapper @Inject constructor() : EntityMapper<ProfileEntity, Profile>
             model.weight,
             model.allergy,
             model.category,
+            model.babysBirthDate,
+            model.gestationalAge,
             model.picture
         )
     }

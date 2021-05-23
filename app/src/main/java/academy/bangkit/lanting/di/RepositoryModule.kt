@@ -4,6 +4,8 @@ import academy.bangkit.lanting.data.LantingRepository
 import academy.bangkit.lanting.data.local.ProfileDao
 import academy.bangkit.lanting.data.local.mapper.NutritionMapper
 import academy.bangkit.lanting.data.local.mapper.ProfileMapper
+import academy.bangkit.lanting.data.remote.APIService
+import academy.bangkit.lanting.data.remote.mapper.RecipeMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,9 +18,17 @@ object RepositoryModule {
     @Provides
     fun provideLantingRepository(
         profileDao: ProfileDao,
+        apiService: APIService,
         profileMapper: ProfileMapper,
-        nutritionMapper: NutritionMapper
+        nutritionMapper: NutritionMapper,
+        recipeMapper: RecipeMapper,
     ): LantingRepository {
-        return LantingRepository(profileDao, profileMapper, nutritionMapper)
+        return LantingRepository(
+            profileDao,
+            apiService,
+            profileMapper,
+            nutritionMapper,
+            recipeMapper
+        )
     }
 }

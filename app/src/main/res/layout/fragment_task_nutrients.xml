@@ -9,19 +9,19 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_arrow_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_arrow_left"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_left" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_arrow_right"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_arrow_right"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_right" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_date"
@@ -32,5 +32,204 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="42dp"
+        android:text="@string/total"
+        app:layout_constraintEnd_toStartOf="@id/tv_goal"
+        app:layout_constraintTop_toTopOf="@id/tv_goal" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="42dp"
+        android:text="@string/goal"
+        app:layout_constraintEnd_toStartOf="@id/tv_left"
+        app:layout_constraintTop_toTopOf="@id/tv_left" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/left"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_energy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/energy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_left" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_energy_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_total"
+        app:layout_constraintTop_toTopOf="@id/tv_energy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_energy_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_goal"
+        app:layout_constraintTop_toTopOf="@id/tv_energy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_energy_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_left"
+        app:layout_constraintTop_toTopOf="@id/tv_energy" />
+
+    <ProgressBar
+        android:id="@+id/pb_energy"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_energy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_protein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/protein"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pb_energy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_protein_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_total"
+        app:layout_constraintTop_toTopOf="@id/tv_protein" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_protein_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_goal"
+        app:layout_constraintTop_toTopOf="@id/tv_protein" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_protein_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_left"
+        app:layout_constraintTop_toTopOf="@id/tv_protein" />
+
+    <ProgressBar
+        android:id="@+id/pb_protein"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_protein" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_fat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/fat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pb_protein" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_fat_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_total"
+        app:layout_constraintTop_toTopOf="@id/tv_fat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_fat_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_goal"
+        app:layout_constraintTop_toTopOf="@id/tv_fat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_fat_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_left"
+        app:layout_constraintTop_toTopOf="@id/tv_fat" />
+
+    <ProgressBar
+        android:id="@+id/pb_fat"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_fat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_carbohydrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/carbohydrate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pb_fat" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_carbohydrate_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_total"
+        app:layout_constraintTop_toTopOf="@id/tv_carbohydrate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_carbohydrate_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_goal"
+        app:layout_constraintTop_toTopOf="@id/tv_carbohydrate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_carbohydrate_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_0"
+        app:layout_constraintEnd_toEndOf="@id/tv_left"
+        app:layout_constraintTop_toTopOf="@id/tv_carbohydrate" />
+
+    <ProgressBar
+        android:id="@+id/pb_carbohydrate"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_carbohydrate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import academy.bangkit.lanting.R
 import academy.bangkit.lanting.databinding.ActivityRecipeBinding
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

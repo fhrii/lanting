@@ -41,8 +41,16 @@
     <string name="recipe_budget_text">You will get some recipe by input your budget for get some combination recipe</string>
     <string name="_30000">30000</string>
     <string name="recipe_recommended_text">a collection of recipes that we recommend. swipe up for more</string>
-    <string name="article_text">Article that blablabla about stunting that you should know. Wanna see the article?</string>
+    <string name="article_text">Article that blablabla about stunting that you should know. Want to see the article?</string>
     <string name="today">Today</string>
     <string name="gestational_age">Gestational age by month</string>
     <string name="baby_birth_date">Baby\'s birth date</string>
+    <string name="total">Total</string>
+    <string name="goal">Goal</string>
+    <string name="left">Left</string>
+    <string name="energy">Energy</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat</string>
+    <string name="carbohydrate">Carbohydrate</string>
+    <string name="_0">0</string>
 </resources>

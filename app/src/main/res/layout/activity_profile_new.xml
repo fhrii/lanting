@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/bg_profile_form_edt"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/white" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/bg_profile_form_edt"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:textColor="@color/white" />
 
             <com.google.android.material.textview.MaterialTextView

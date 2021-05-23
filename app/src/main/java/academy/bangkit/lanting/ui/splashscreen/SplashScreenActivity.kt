@@ -5,6 +5,7 @@ import academy.bangkit.lanting.databinding.ActivitySplashScreenBinding
 import academy.bangkit.lanting.ui.getting.GettingActivity
 import academy.bangkit.lanting.ui.home.HomeActivity
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
+import academy.bangkit.lanting.utils.DateHelper
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     companion object {
         private const val TIME_OUT = 2000L
-        private const val TAG = "SplashScreenActivity"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,8 +36,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
         myPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val skipToProfile = myPreferences.getBoolean(GettingActivity.ALREADY_USED, false)
-
-        Log.d(TAG, "onCreate: ${profilePrefences.profile}")
 
         Handler(Looper.getMainLooper()).postDelayed({
             lateinit var mIntent: Intent

@@ -13,5 +13,7 @@ data class Profile(
     var weight: Int,
     var allergy: String?,
     var category: ProfileCategory,
+    var babysBirthDate: Date?,
+    var gestationalAge: Int?,
     var picture: String?,
 ) : Parcelable

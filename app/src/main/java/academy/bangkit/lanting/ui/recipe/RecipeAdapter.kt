@@ -10,11 +10,9 @@ class RecipeAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
+        return  when (position) {
             0 -> RecipeBudgetFragment()
-            1 -> RecipeRecommendFragment()
-            else -> Fragment()
+            else -> RecipeRecommendFragment()
         }
     }
-
 }

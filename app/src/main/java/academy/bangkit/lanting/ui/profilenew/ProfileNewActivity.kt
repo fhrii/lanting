@@ -6,7 +6,6 @@ import academy.bangkit.lanting.data.model.ProfileCategory
 import academy.bangkit.lanting.databinding.ActivityProfileNewBinding
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
 import academy.bangkit.lanting.utils.*
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -23,7 +22,6 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -38,7 +36,7 @@ class ProfileNewActivity : AppCompatActivity() {
     private lateinit var babysDatePicker: DatePickerDialog.OnDateSetListener
 
     private lateinit var type: String
-    private var profileCategory: ProfileCategory? = null
+    private var profileCategory: ProfileCategory = ProfileCategory.IBU
     private var profile: Profile? = null
 
     private val TAG = "ProfileNewActivity"
@@ -51,7 +49,6 @@ class ProfileNewActivity : AppCompatActivity() {
         const val EXTRA_CATEGORY = "extra_category"
     }
 
-    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileNewBinding.inflate(layoutInflater)
@@ -75,10 +72,6 @@ class ProfileNewActivity : AppCompatActivity() {
 
         type = intent.getStringExtra(EXTRA_TYPE) as String
         profile = intent.getParcelableExtra(EXTRA_PROFILE)
-        profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory?
-
-        setDataFormListener()
-        setObservers()
 
         if (type == TYPE_EDIT) {
             with(binding) {
@@ -92,6 +85,18 @@ class ProfileNewActivity : AppCompatActivity() {
                     viewModel.setWeight(theProfile.weight)
                     theProfile.allergy?.also { viewModel.setAllergy(it) }
 
+                    if (theProfile.category == ProfileCategory.BUSUI) {
+                        profileCategory = ProfileCategory.BUSUI
+                        theProfile.babysBirthDate?.let {
+                            viewModel.setBabysBirthDate(it)
+                        }
+                    } else if (theProfile.category == ProfileCategory.BUMIL) {
+                        profileCategory = ProfileCategory.BUMIL
+                        theProfile.gestationalAge?.let {
+                            viewModel.setGestationalAge(it)
+                        }
+                    }
+
                     theProfile.picture?.also { name ->
                         ImageStorageManager.getImageFromInternalStorage(
                             this@ProfileNewActivity,
@@ -103,7 +108,10 @@ class ProfileNewActivity : AppCompatActivity() {
                     }
                 }
             }
-        } else profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory?
+        } else profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory
+
+        setDataFormListener()
+        setObservers()
     }
 
     private fun showDatePickerDialog(
@@ -121,20 +129,19 @@ class ProfileNewActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataFormListener() {
-        profileCategory?.let {
-            if (it != ProfileCategory.BUMIL && it != ProfileCategory.BUSUI) {
-                binding.edtExt.setVisible(false)
-                binding.tvExt.setVisible(false)
-            } else {
-                if (it == ProfileCategory.BUMIL) {
-                    binding.tvExt.text = getString(R.string.gestational_age)
-                    binding.edtExt.isClickable = true
-                    binding.edtExt.isCursorVisible = true
+        if (profileCategory != ProfileCategory.BUMIL && profileCategory != ProfileCategory.BUSUI) {
+            binding.edtExt.setVisible(false)
+            binding.tvExt.setVisible(false)
+        } else {
+            if (profileCategory == ProfileCategory.BUMIL) {
+                binding.tvExt.text = getString(R.string.gestational_age)
+                binding.edtExt.isClickable = true
+                binding.edtExt.isCursorVisible = true
+                binding.edtExt.isFocusableInTouchMode = true
+                binding.edtExt.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     binding.edtExt.focusable = EditText.FOCUSABLE
-                    binding.edtExt.isFocusableInTouchMode = true
-                    binding.edtExt.inputType = InputType.TYPE_CLASS_NUMBER
                 }
             }
         }
@@ -188,21 +195,19 @@ class ProfileNewActivity : AppCompatActivity() {
                 showDatePickerDialog(datePicker, myCalendar)
             }
 
-            profileCategory?.let { category ->
-                if (category == ProfileCategory.BUSUI) {
-                    edtExt.setOnClickListener {
-                        showDatePickerDialog(babysDatePicker, babyCalendar)
+            if (profileCategory == ProfileCategory.BUSUI) {
+                edtExt.setOnClickListener {
+                    showDatePickerDialog(babysDatePicker, babyCalendar)
+                }
+                edtExt.setOnChangeListener {
+                    if (!it.isNullOrEmpty()) {
+                        viewModel.setBabysBirthDate(DateHelper.formatStringToDate(it))
                     }
-                    edtExt.setOnChangeListener {
-                        if (!it.isNullOrEmpty()) {
-                            viewModel.setBabysBirthDate(DateHelper.formatStringToDate(it))
-                        }
-                    }
-                } else if (category == ProfileCategory.BUMIL) {
-                    edtExt.setOnChangeListener {
-                        if (!it.isNullOrEmpty()) {
-                            viewModel.setGestationalAge(it.toInt())
-                        }
+                }
+            } else if (profileCategory == ProfileCategory.BUMIL) {
+                edtExt.setOnChangeListener {
+                    if (!it.isNullOrEmpty()) {
+                        viewModel.setGestationalAge(it.toInt())
                     }
                 }
             }
@@ -287,12 +292,10 @@ class ProfileNewActivity : AppCompatActivity() {
                     edtWeight.error = getString(R.string.field_error)
                 }
 
-                profileCategory.let { category ->
-                    if (category == ProfileCategory.BUMIL || category == ProfileCategory.BUSUI) {
-                        if (inputExt.isEmpty()) {
-                            areFieldsEmpty = true
-                            edtExt.error
-                        }
+                if (profileCategory == ProfileCategory.BUMIL || profileCategory == ProfileCategory.BUSUI) {
+                    if (inputExt.isEmpty()) {
+                        areFieldsEmpty = true
+                        edtExt.error = getString(R.string.field_error)
                     }
                 }
 
@@ -304,6 +307,10 @@ class ProfileNewActivity : AppCompatActivity() {
                             it.height = inputHeight.toInt()
                             it.weight = inputWeight.toInt()
                             it.allergy = if (inputAllergy.isEmpty()) null else inputAllergy
+                            it.babysBirthDate = if (profileCategory == ProfileCategory.BUSUI)
+                                DateHelper.formatStringToDate(inputExt) else null
+                            it.gestationalAge =
+                                if (profileCategory == ProfileCategory.BUMIL) inputExt.toInt() else null
 
                             if (viewModel.picture.value != null) {
                                 if (it.picture != null) {
@@ -333,7 +340,7 @@ class ProfileNewActivity : AppCompatActivity() {
                                     }
                                     is ResultState.Error -> {
                                         binding.btnCreate.isEnabled = true
-                                        Log.d(TAG, "setDataFormListener: Error")
+                                        Log.d(TAG, "setDataFormListener: ${result.exception}")
                                     }
                                     is ResultState.Loading -> {
                                         binding.btnCreate.isEnabled = false
@@ -353,12 +360,17 @@ class ProfileNewActivity : AppCompatActivity() {
                             inputHeight.toInt(),
                             inputWeight.toInt(),
                             if (inputAllergy.isEmpty()) null else inputAllergy,
-                            profileCategory!!,
+                            profileCategory,
+                            if (profileCategory == ProfileCategory.BUSUI)
+                                DateHelper.formatStringToDate(inputExt) else null,
+                            if (profileCategory == ProfileCategory.BUMIL) inputExt.toInt() else null,
                             if (viewModel.picture.value != null) ImageStorageManager.saveToInternalStorage(
                                 this@ProfileNewActivity,
                                 viewModel.picture.value!!
                             ) else null
                         )
+
+                    Log.d(TAG, "setDataFormListener: $profile")
 
                     viewModel.insertProfile(profile) {
                         when (it) {
@@ -371,7 +383,7 @@ class ProfileNewActivity : AppCompatActivity() {
                             }
                             is ResultState.Error -> {
                                 binding.btnCreate.isEnabled = true
-                                Log.d(TAG, "setDataFormListener: Error")
+                                Log.d(TAG, "setDataFormListener: ${it.exception}")
                             }
                             is ResultState.Loading -> {
                                 binding.btnCreate.isEnabled = false
@@ -412,25 +424,19 @@ class ProfileNewActivity : AppCompatActivity() {
             binding.civProfile.setImageBitmap(it)
         }
 
-        profileCategory.let { category ->
-            when (category) {
-                ProfileCategory.BUMIL -> {
-                    viewModel.gestationalAge.observe(this@ProfileNewActivity) { value ->
-                        Log.d(TAG, "setObservers: asu")
-                        value?.let {
-                            if (it.toString() != binding.edtExt.text?.toString())
-                                binding.edtExt.setText(it.toString())
-                        }
-                    }
+        if (profileCategory == ProfileCategory.BUMIL) {
+            viewModel.gestationalAge.observe(this@ProfileNewActivity) { value ->
+                value?.let {
+                    if (it.toString() != binding.edtExt.text?.toString())
+                        binding.edtExt.setText(it.toString())
                 }
-                ProfileCategory.BUSUI -> {
-                    viewModel.babysBirthDate.observe(this@ProfileNewActivity) { date ->
-                        date?.let {
-                            val babysBirthDate = DateHelper.formatDateToString(it)
-                            if (babysBirthDate != binding.edtExt.text?.toString())
-                                binding.edtExt.setText(babysBirthDate)
-                        }
-                    }
+            }
+        } else if (profileCategory == ProfileCategory.BUSUI) {
+            viewModel.babysBirthDate.observe(this@ProfileNewActivity) { date ->
+                date?.let {
+                    val babysBirthDate = DateHelper.formatDateToString(it)
+                    if (babysBirthDate != binding.edtExt.text?.toString())
+                        binding.edtExt.setText(babysBirthDate)
                 }
             }
         }

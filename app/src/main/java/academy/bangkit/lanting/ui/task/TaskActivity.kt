@@ -37,7 +37,9 @@ class TaskActivity : AppCompatActivity() {
                         val days = nutrients.map { it.date }.toSet().toMutableList()
                         val today = DateHelper.todayTimeStamp()
                         val theDate = days.find { it == today }
-                        if (theDate == null) days.add(today as Date)
+
+                        if (theDate == null) days.add(today)
+
                         binding.vpTask.adapter = TaskAdapter(this@TaskActivity, nutrients, days)
                         binding.vpTask.currentItem = days.size - 1
                     }

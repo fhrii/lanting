@@ -5,6 +5,10 @@ import academy.bangkit.lanting.data.local.mapper.NutritionMapper
 import academy.bangkit.lanting.data.local.mapper.ProfileMapper
 import academy.bangkit.lanting.data.model.Nutrition
 import academy.bangkit.lanting.data.model.Profile
+import academy.bangkit.lanting.data.model.Recipe
+import academy.bangkit.lanting.data.remote.APIService
+import academy.bangkit.lanting.data.remote.mapper.RecipeMapper
+import academy.bangkit.lanting.data.remote.response.RecipeResponse
 import academy.bangkit.lanting.utils.ResultState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,12 +16,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.Exception
 
 class LantingRepository(
     private val profileDao: ProfileDao,
+    private val apiService: APIService,
     private val profileMapper: ProfileMapper,
-    private val nutritionMapper: NutritionMapper
+    private val nutritionMapper: NutritionMapper,
+    private val recipeMapper: RecipeMapper
 ) {
     fun insertProfile(profile: Profile, callback: (ResultState<Boolean>) -> Unit) {
         callback(ResultState.Loading)
@@ -131,5 +140,30 @@ class LantingRepository(
                 }
             }
         }
+    }
+
+    fun getRecipes(): LiveData<ResultState<List<Recipe>>> {
+        val recipeResult = MutableLiveData<ResultState<List<Recipe>>>()
+        recipeResult.value = ResultState.Loading
+
+        apiService.getRecipes().enqueue(object : Callback<List<RecipeResponse>> {
+            override fun onResponse(
+                call: Call<List<RecipeResponse>>,
+                response: Response<List<RecipeResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val recipes = recipeMapper.mapFromEntityList(it)
+                        recipeResult.value = ResultState.Success(recipes)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<RecipeResponse>>, t: Throwable) {
+                recipeResult.value = ResultState.Error(Exception(t))
+            }
+        })
+
+        return recipeResult
     }
 }

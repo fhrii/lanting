@@ -1,6 +1,7 @@
 package academy.bangkit.lanting.ui.task
 
 import academy.bangkit.lanting.data.model.Nutrition
+import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.ui.tasknutrients.TaskNutrientsFragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
