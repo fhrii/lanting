@@ -108,6 +108,25 @@
                 android:inputType="text"
                 android:textColor="@color/white" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/baby_birth_date"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_ext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/bg_profile_form_edt"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/white" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,10 +138,10 @@
                     android:id="@+id/btn_delete"
                     style="@style/Theme.Lanting.Button"
                     android:layout_width="wrap_content"
-                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
-                    android:text="@string/delete" />
+                    android:text="@string/delete"
+                    android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_create"

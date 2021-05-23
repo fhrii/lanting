@@ -35,6 +35,12 @@ class ProfileNewViewModel @Inject constructor(
     private val _picture = MutableLiveData<Bitmap>()
     val picture: LiveData<Bitmap> = _picture
 
+    private val _gestationalAge = MutableLiveData<Int?>()
+    val gestationalAge: LiveData<Int?> = _gestationalAge
+
+    private val _babysBirthDate = MutableLiveData<Date?>()
+    val babysBirthDate: LiveData<Date?> = _babysBirthDate
+
     fun setName(name: String) {
         _name.value = name
     }
@@ -57,6 +63,14 @@ class ProfileNewViewModel @Inject constructor(
 
     fun setPicture(pic: Bitmap) {
         _picture.value = pic
+    }
+
+    fun setGestationalAge(int: Int) {
+        _gestationalAge.value = int
+    }
+
+    fun setBabysBirthDate(birth: Date) {
+        _babysBirthDate.value = birth
     }
 
     fun insertProfile(profile: Profile, callback: (ResultState<Boolean>) -> Unit) {

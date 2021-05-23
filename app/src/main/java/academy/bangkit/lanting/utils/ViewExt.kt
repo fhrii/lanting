@@ -3,6 +3,7 @@ package academy.bangkit.lanting.utils
 import academy.bangkit.lanting.R
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -26,4 +27,8 @@ fun ImageView.setImageFromUrl(url: String) {
         .placeholder(R.drawable.ic_image_loading)
         .override(Target.SIZE_ORIGINAL)
         .into(this)
+}
+
+fun View.setVisible(state: Boolean) {
+    this.visibility = if (state) View.VISIBLE else View.GONE
 }

@@ -5,23 +5,25 @@ import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.data.model.ProfileCategory
 import academy.bangkit.lanting.databinding.ActivityProfileNewBinding
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
-import academy.bangkit.lanting.utils.DateHelper
-import academy.bangkit.lanting.utils.ImageStorageManager
-import academy.bangkit.lanting.utils.ResultState
-import academy.bangkit.lanting.utils.setOnChangeListener
+import academy.bangkit.lanting.utils.*
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -31,7 +33,9 @@ class ProfileNewActivity : AppCompatActivity() {
     private val viewModel: ProfileNewViewModel by viewModels()
 
     private lateinit var myCalendar: Calendar
+    private lateinit var babyCalendar: Calendar
     private lateinit var datePicker: DatePickerDialog.OnDateSetListener
+    private lateinit var babysDatePicker: DatePickerDialog.OnDateSetListener
 
     private lateinit var type: String
     private var profileCategory: ProfileCategory? = null
@@ -47,6 +51,7 @@ class ProfileNewActivity : AppCompatActivity() {
         const val EXTRA_CATEGORY = "extra_category"
     }
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileNewBinding.inflate(layoutInflater)
@@ -58,6 +63,14 @@ class ProfileNewActivity : AppCompatActivity() {
             myCalendar.set(Calendar.MONTH, month)
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             viewModel.setDateOfBirth(myCalendar.time)
+        }
+
+        babyCalendar = Calendar.getInstance()
+        babysDatePicker = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            babyCalendar.set(Calendar.YEAR, year)
+            babyCalendar.set(Calendar.MONTH, month)
+            babyCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            viewModel.setBabysBirthDate(babyCalendar.time)
         }
 
         type = intent.getStringExtra(EXTRA_TYPE) as String
@@ -93,19 +106,39 @@ class ProfileNewActivity : AppCompatActivity() {
         } else profileCategory = intent.getSerializableExtra(EXTRA_CATEGORY) as ProfileCategory?
     }
 
-    private fun showDatePickerDialog() {
+    private fun showDatePickerDialog(
+        datePicker: DatePickerDialog.OnDateSetListener,
+        calendar: Calendar
+    ) {
         val dialog = DatePickerDialog(
             this@ProfileNewActivity,
             datePicker,
-            myCalendar.get(Calendar.YEAR),
-            myCalendar.get(Calendar.MONTH),
-            myCalendar.get(Calendar.DAY_OF_MONTH)
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
         )
         dialog.datePicker.maxDate = System.currentTimeMillis() - 1000
         dialog.show()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setDataFormListener() {
+        profileCategory?.let {
+            if (it != ProfileCategory.BUMIL && it != ProfileCategory.BUSUI) {
+                binding.edtExt.setVisible(false)
+                binding.tvExt.setVisible(false)
+            } else {
+                if (it == ProfileCategory.BUMIL) {
+                    binding.tvExt.text = getString(R.string.gestational_age)
+                    binding.edtExt.isClickable = true
+                    binding.edtExt.isCursorVisible = true
+                    binding.edtExt.focusable = EditText.FOCUSABLE
+                    binding.edtExt.isFocusableInTouchMode = true
+                    binding.edtExt.inputType = InputType.TYPE_CLASS_NUMBER
+                }
+            }
+        }
+
         val galleryLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
@@ -152,7 +185,26 @@ class ProfileNewActivity : AppCompatActivity() {
             }
 
             edtDate.setOnClickListener {
-                showDatePickerDialog()
+                showDatePickerDialog(datePicker, myCalendar)
+            }
+
+            profileCategory?.let { category ->
+                if (category == ProfileCategory.BUSUI) {
+                    edtExt.setOnClickListener {
+                        showDatePickerDialog(babysDatePicker, babyCalendar)
+                    }
+                    edtExt.setOnChangeListener {
+                        if (!it.isNullOrEmpty()) {
+                            viewModel.setBabysBirthDate(DateHelper.formatStringToDate(it))
+                        }
+                    }
+                } else if (category == ProfileCategory.BUMIL) {
+                    edtExt.setOnChangeListener {
+                        if (!it.isNullOrEmpty()) {
+                            viewModel.setGestationalAge(it.toInt())
+                        }
+                    }
+                }
             }
 
             edtName.setOnChangeListener {
@@ -211,6 +263,7 @@ class ProfileNewActivity : AppCompatActivity() {
                 val inputHeight = edtHeight.text.toString().trim()
                 val inputWeight = edtWeight.text.toString().trim()
                 val inputAllergy = edtAllergy.text.toString().trim()
+                val inputExt = edtExt.text.toString().trim()
 
                 var areFieldsEmpty = false
 
@@ -232,6 +285,15 @@ class ProfileNewActivity : AppCompatActivity() {
                 if (inputWeight.isEmpty() or (inputWeight == "0")) {
                     areFieldsEmpty = true
                     edtWeight.error = getString(R.string.field_error)
+                }
+
+                profileCategory.let { category ->
+                    if (category == ProfileCategory.BUMIL || category == ProfileCategory.BUSUI) {
+                        if (inputExt.isEmpty()) {
+                            areFieldsEmpty = true
+                            edtExt.error
+                        }
+                    }
                 }
 
                 if (!areFieldsEmpty) {
@@ -325,7 +387,6 @@ class ProfileNewActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.name.observe(this) {
-            Log.d(TAG, "setObservers: $it")
             if (it != binding.edtName.text?.toString()) binding.edtName.setText(it)
         }
 
@@ -349,6 +410,29 @@ class ProfileNewActivity : AppCompatActivity() {
 
         viewModel.picture.observe(this) {
             binding.civProfile.setImageBitmap(it)
+        }
+
+        profileCategory.let { category ->
+            when (category) {
+                ProfileCategory.BUMIL -> {
+                    viewModel.gestationalAge.observe(this@ProfileNewActivity) { value ->
+                        Log.d(TAG, "setObservers: asu")
+                        value?.let {
+                            if (it.toString() != binding.edtExt.text?.toString())
+                                binding.edtExt.setText(it.toString())
+                        }
+                    }
+                }
+                ProfileCategory.BUSUI -> {
+                    viewModel.babysBirthDate.observe(this@ProfileNewActivity) { date ->
+                        date?.let {
+                            val babysBirthDate = DateHelper.formatDateToString(it)
+                            if (babysBirthDate != binding.edtExt.text?.toString())
+                                binding.edtExt.setText(babysBirthDate)
+                        }
+                    }
+                }
+            }
         }
     }
 }

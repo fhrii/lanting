@@ -2,12 +2,14 @@ package academy.bangkit.lanting.ui.task
 
 import academy.bangkit.lanting.data.ProfilePreferences
 import academy.bangkit.lanting.databinding.ActivityTaskBinding
+import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ResultState
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,7 +33,13 @@ class TaskActivity : AppCompatActivity() {
             viewModel.getNutritions(profile.id).observe(this@TaskActivity) { result ->
                 when (result) {
                     is ResultState.Success -> {
-                        binding.vpTask.adapter = TaskAdapter(this@TaskActivity, result.data)
+                        val nutrients = result.data.sortedBy { it.date }
+                        val days = nutrients.map { it.date }.toSet().toMutableList()
+                        val today = DateHelper.todayTimeStamp()
+                        val theDate = days.find { it == today }
+                        if (theDate == null) days.add(today as Date)
+                        binding.vpTask.adapter = TaskAdapter(this@TaskActivity, nutrients, days)
+                        binding.vpTask.currentItem = days.size - 1
                     }
                     is ResultState.Error -> {
                         Log.d(TAG, "onCreate: ${result.exception}")
