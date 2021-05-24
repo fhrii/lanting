@@ -10,5 +10,5 @@ interface APIService {
     fun getRecipes(): Call<List<RecipeResponse>>
 
     @GET("2ea3ef7b-7eb7-469a-817a-303dc71c509e")
-    fun getFoodTask(): Call<FoodTaskResponse>
+    fun getFoodTask(): Call<List<FoodTaskResponse>>
 }

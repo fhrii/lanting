@@ -77,5 +77,4 @@
         android:src="@drawable/ic_camera_add"
         app:tint="@color/black" />
 
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

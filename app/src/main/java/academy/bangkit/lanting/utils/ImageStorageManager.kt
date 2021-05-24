@@ -5,8 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import java.io.File
 import java.io.FileInputStream
-import java.text.SimpleDateFormat
-import java.util.*
 
 object ImageStorageManager {
     fun saveToInternalStorage(
@@ -16,7 +14,7 @@ object ImageStorageManager {
         val fileName: String = DateHelper.generateFileName()
 
         context.openFileOutput(fileName, Context.MODE_PRIVATE).use { fos ->
-            bitmapImage.compress(Bitmap.CompressFormat.PNG, 90, fos)
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos)
         }
 
         return fileName

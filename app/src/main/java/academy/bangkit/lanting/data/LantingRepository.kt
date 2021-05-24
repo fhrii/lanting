@@ -3,11 +3,14 @@ package academy.bangkit.lanting.data
 import academy.bangkit.lanting.data.local.ProfileDao
 import academy.bangkit.lanting.data.local.mapper.NutritionMapper
 import academy.bangkit.lanting.data.local.mapper.ProfileMapper
+import academy.bangkit.lanting.data.model.Food
 import academy.bangkit.lanting.data.model.Nutrition
 import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.data.model.Recipe
 import academy.bangkit.lanting.data.remote.APIService
+import academy.bangkit.lanting.data.remote.mapper.FoodMapper
 import academy.bangkit.lanting.data.remote.mapper.RecipeMapper
+import academy.bangkit.lanting.data.remote.response.FoodTaskResponse
 import academy.bangkit.lanting.data.remote.response.RecipeResponse
 import academy.bangkit.lanting.utils.ResultState
 import androidx.lifecycle.LiveData
@@ -26,7 +29,8 @@ class LantingRepository(
     private val apiService: APIService,
     private val profileMapper: ProfileMapper,
     private val nutritionMapper: NutritionMapper,
-    private val recipeMapper: RecipeMapper
+    private val recipeMapper: RecipeMapper,
+    private val foodMapper: FoodMapper
 ) {
     fun insertProfile(profile: Profile, callback: (ResultState<Boolean>) -> Unit) {
         callback(ResultState.Loading)
@@ -143,8 +147,8 @@ class LantingRepository(
     }
 
     fun getRecipes(): LiveData<ResultState<List<Recipe>>> {
-        val recipeResult = MutableLiveData<ResultState<List<Recipe>>>()
-        recipeResult.value = ResultState.Loading
+        val recipesResult = MutableLiveData<ResultState<List<Recipe>>>()
+        recipesResult.value = ResultState.Loading
 
         apiService.getRecipes().enqueue(object : Callback<List<RecipeResponse>> {
             override fun onResponse(
@@ -154,16 +158,42 @@ class LantingRepository(
                 if (response.isSuccessful) {
                     response.body()?.let {
                         val recipes = recipeMapper.mapFromEntityList(it)
-                        recipeResult.value = ResultState.Success(recipes)
+                        recipesResult.value = ResultState.Success(recipes)
                     }
                 }
             }
 
             override fun onFailure(call: Call<List<RecipeResponse>>, t: Throwable) {
-                recipeResult.value = ResultState.Error(Exception(t))
+                recipesResult.value = ResultState.Error(Exception(t))
             }
         })
 
-        return recipeResult
+        return recipesResult
+    }
+
+    fun getFoodTask(): LiveData<ResultState<List<Food>>> {
+        val foodsResult = MutableLiveData<ResultState<List<Food>>>()
+        foodsResult.value = ResultState.Loading
+
+        apiService.getFoodTask().enqueue(object : Callback<List<FoodTaskResponse>> {
+            override fun onResponse(
+                call: Call<List<FoodTaskResponse>>,
+                response: Response<List<FoodTaskResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val foods = foodMapper.mapFromEntityList(it)
+                        foodsResult.value = ResultState.Success(foods)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<FoodTaskResponse>>, t: Throwable) {
+                foodsResult.value = ResultState.Error(Exception(t))
+            }
+
+        })
+
+        return foodsResult
     }
 }

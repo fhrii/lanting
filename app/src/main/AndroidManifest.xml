@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Lanting">
-        <activity android:name=".ui.task.TaskActivity"></activity>
+        <activity android:name=".ui.taskimage.TaskImageActivity"></activity>
+        <activity android:name=".ui.task.TaskActivity" />
         <activity android:name=".ui.article.ArticleActivity" />
         <activity android:name=".ui.recipe.RecipeActivity" />
         <activity android:name=".ui.home.HomeActivity" />

@@ -53,4 +53,5 @@
     <string name="fat">Fat</string>
     <string name="carbohydrate">Carbohydrate</string>
     <string name="_0">0</string>
+    <string name="nutrition_unit">%sg</string>
 </resources>
