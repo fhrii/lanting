@@ -90,8 +90,8 @@ class TaskNutrientsFragment : Fragment() {
         binding.tvEnergyGoal.text = calcAndConvertNutrition(neededEnergy)
         binding.tvEnergyLeft.text =
             if (neededEnergy > currentEnergy)
-                withNutritionUnit(calcAndConvertNutrition(neededEnergy - currentEnergy))
-            else withNutritionUnit(getString(ZERO))
+                withNutritionUnit(calcAndConvertNutrition(neededEnergy - currentEnergy), true)
+            else withNutritionUnit(getString(ZERO), true)
         binding.pbEnergy.progress = getProgress(currentEnergy.toDouble(), neededEnergy.toDouble())
 
         binding.tvProteinTotal.text = calcAndConvertNutrition(currentProtein)
@@ -139,7 +139,7 @@ class TaskNutrientsFragment : Fragment() {
         return if (progress > 100) 100 else progress
     }
 
-    private fun withNutritionUnit(value: String): String {
-        return getString(R.string.nutrition_unit_g, value)
+    private fun withNutritionUnit(value: String, isNutrition: Boolean = false): String {
+        return if(!isNutrition)getString(R.string.nutrition_unit_g, value) else getString(R.string.nutrition_unit_kkal, value)
     }
 }
