@@ -2,6 +2,7 @@ package academy.bangkit.lanting.ui.task
 
 import academy.bangkit.lanting.R
 import academy.bangkit.lanting.data.ProfilePreferences
+import academy.bangkit.lanting.data.model.Nutrition
 import academy.bangkit.lanting.databinding.ActivityTaskBinding
 import academy.bangkit.lanting.ui.taskimage.TaskImageActivity
 import academy.bangkit.lanting.utils.DateHelper
@@ -77,16 +78,44 @@ class TaskActivity : AppCompatActivity() {
         val taskImageLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 result?.apply {
+                    val imageName =
+                        data?.extras?.get(TaskImageActivity.EXTRA_IMAGE) as String?
+                    imageName?.let {
+                        ImageStorageManager
+                            .deleteImageFromInternalStorage(this@TaskActivity, it)
+                    }
+
                     when (resultCode) {
-                        RESULT_OK -> Log.d(TAG, "setImageButton: OKE MANTAP")
-                        RESULT_CANCELED -> {
-                            val imageName =
-                                data?.extras?.get(TaskImageActivity.EXTRA_IMAGE) as String?
-                            imageName?.let {
-                                ImageStorageManager
-                                    .deleteImageFromInternalStorage(this@TaskActivity, it)
-                            }
+                        RESULT_OK -> {
+                            data?.getParcelableArrayListExtra<Nutrition>(TaskImageActivity.EXTRA_NUTRIENTS)
+                                ?.also { nutrients ->
+                                    profilePreferences.profile?.also { profile ->
+                                        val newNutrients = nutrients.map {
+                                            it.profileId = profile.id
+                                            it
+                                        }
+                                        viewModel.insertNutrients(newNutrients) { result ->
+                                            when (result) {
+                                                is ResultState.Success -> {
+                                                    viewModel.getNutritions(profile.id)
+                                                        .removeObservers(this@TaskActivity)
+                                                    setNutrients()
+                                                }
+                                                is ResultState.Error -> {
+                                                    Log.d(
+                                                        TAG,
+                                                        "setImageButton: ${result.exception}"
+                                                    )
+                                                }
+                                                is ResultState.Loading -> {
+                                                    Log.d(TAG, "setImageButton: Loading")
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                         }
+                        RESULT_CANCELED -> Log.d(TAG, "setImageButton: Canceled")
                     }
                 }
             }

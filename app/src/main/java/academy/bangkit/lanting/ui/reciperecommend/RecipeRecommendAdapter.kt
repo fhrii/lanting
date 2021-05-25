@@ -2,12 +2,16 @@ package academy.bangkit.lanting.ui.reciperecommend
 
 import academy.bangkit.lanting.data.model.Recipe
 import academy.bangkit.lanting.databinding.ItemRecipeRowBinding
+import academy.bangkit.lanting.ui.recipedetail.RecipeDetailActivity
 import academy.bangkit.lanting.utils.setImageFromUrl
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeRecommendAdapter: RecyclerView.Adapter<RecipeRecommendAdapter.RecipeRecommendViewHolder>() {
+class RecipeRecommendAdapter :
+    RecyclerView.Adapter<RecipeRecommendAdapter.RecipeRecommendViewHolder>() {
     val recipes = ArrayList<Recipe>()
 
     fun clearRecipe() {
@@ -29,6 +33,12 @@ class RecipeRecommendAdapter: RecyclerView.Adapter<RecipeRecommendAdapter.Recipe
                 tvTitle.text = recipe.name
                 tvDesc.text = price
                 imgThumbnail.setImageFromUrl(recipe.imageUrl)
+
+                itemView.setOnClickListener {
+                    val mIntent = Intent(itemView.context, RecipeDetailActivity::class.java)
+                    mIntent.putExtra(RecipeDetailActivity.EXTRA_RECIPE, recipe)
+                    ActivityCompat.startActivity(itemView.context, mIntent, null)
+                }
             }
         }
     }

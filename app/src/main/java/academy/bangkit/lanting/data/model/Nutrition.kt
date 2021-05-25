@@ -7,7 +7,7 @@ import java.util.*
 @Parcelize
 data class Nutrition(
     val id: Int = 0,
-    val profileId: Int,
+    var profileId: Int,
     val date: Date,
     val name: String,
     val size: String,

@@ -53,5 +53,14 @@
     <string name="fat">Fat</string>
     <string name="carbohydrate">Carbohydrate</string>
     <string name="_0">0</string>
-    <string name="nutrition_unit">%sg</string>
+    <string name="nutrition_unit_g">%sg</string>
+    <string name="nutrition_unit_kkal">%scal</string>
+    <string name="add">Add</string>
+    <string name="add_image_failed">Failed, please check your internet</string>
+    <string name="add_image_failed_no_food">Sorry, we can\'t detect your food</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="how_to_cook">How to cook</string>
+    <string name="seasoning">Seasoning</string>
+    <string name="nutrition">Nutrition</string>
+    <string name="estimated_price">Estimated Price - Rp%d</string>
 </resources>

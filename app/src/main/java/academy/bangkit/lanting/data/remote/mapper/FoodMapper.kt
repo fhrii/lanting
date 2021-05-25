@@ -9,6 +9,7 @@ class FoodMapper @Inject constructor(private val foodSizeMapper: FoodSizeMapper)
     EntityMapper<FoodTaskResponse, Food> {
     override fun mapFromEntity(entity: FoodTaskResponse): Food {
         return Food(
+            entity.id,
             entity.name,
             foodSizeMapper.mapFromEntityList(entity.size)
         )
@@ -16,6 +17,7 @@ class FoodMapper @Inject constructor(private val foodSizeMapper: FoodSizeMapper)
 
     override fun mapToEntity(model: Food): FoodTaskResponse {
         return FoodTaskResponse(
+            model.id,
             model.name,
             foodSizeMapper.mapToEntityList(model.size)
         )

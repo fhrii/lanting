@@ -8,6 +8,7 @@ import javax.inject.Inject
 class FoodSizeMapper @Inject constructor() : EntityMapper<FoodSizeResponse, FoodSize> {
     override fun mapFromEntity(entity: FoodSizeResponse): FoodSize {
         return FoodSize(
+            entity.id,
             entity.value,
             entity.energy,
             entity.fat,
@@ -18,6 +19,7 @@ class FoodSizeMapper @Inject constructor() : EntityMapper<FoodSizeResponse, Food
 
     override fun mapToEntity(model: FoodSize): FoodSizeResponse {
         return FoodSizeResponse(
+            model.id,
             model.value,
             model.energy,
             model.fat,

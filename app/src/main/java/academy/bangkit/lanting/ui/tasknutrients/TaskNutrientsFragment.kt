@@ -140,6 +140,6 @@ class TaskNutrientsFragment : Fragment() {
     }
 
     private fun withNutritionUnit(value: String): String {
-        return getString(R.string.nutrition_unit, value)
+        return getString(R.string.nutrition_unit_g, value)
     }
 }
