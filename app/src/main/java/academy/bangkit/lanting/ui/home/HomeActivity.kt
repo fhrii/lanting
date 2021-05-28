@@ -81,6 +81,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val mIntent = Intent(this@HomeActivity, TaskActivity::class.java)
                 startActivity(mIntent)
             }
+            btnLearnMore.setOnClickListener {
+                val mIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://id.wikipedia.org/wiki/Stunting"))
+                startActivity(mIntent)
+            }
 
             tvHello.text = getString(R.string.hello_user, profile.name)
             tvDate.text = DateHelper.today()
