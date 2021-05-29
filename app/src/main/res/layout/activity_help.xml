@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green_dark"
+    tools:context=".ui.help.HelpActivity">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_our_feature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/our_feature"
+        android:textColor="@color/cream"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_back" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_recipe"
+        android:layout_width="86dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/home_icon_recipe"
+        app:layout_constraintStart_toStartOf="@id/btn_back"
+        app:layout_constraintTop_toBottomOf="@id/tv_our_feature" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_recipe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:textColor="@color/cream"
+        android:textSize="18sp"
+        android:text="@string/recipe"
+        app:layout_constraintEnd_toEndOf="@id/iv_article"
+        app:layout_constraintStart_toEndOf="@id/iv_recipe"
+        app:layout_constraintTop_toTopOf="@id/iv_recipe" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:textColor="@color/cream"
+        android:text="@string/recipe_help_text"
+        app:layout_constraintBottom_toBottomOf="@id/iv_recipe"
+        app:layout_constraintEnd_toEndOf="@id/iv_article"
+        app:layout_constraintStart_toEndOf="@id/iv_recipe"
+        app:layout_constraintTop_toBottomOf="@id/tv_recipe" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_article"
+        android:layout_width="86dp"
+        android:layout_height="108dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/home_icon_article"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_recipe" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_article"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/article"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/cream"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/iv_article"
+        app:layout_constraintStart_toStartOf="@id/iv_recipe"
+        app:layout_constraintTop_toTopOf="@id/iv_article" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/cream"
+        android:text="@string/article_help_text"
+        app:layout_constraintBottom_toBottomOf="@id/iv_article"
+        app:layout_constraintEnd_toStartOf="@id/iv_article"
+        app:layout_constraintStart_toStartOf="@id/iv_recipe"
+        app:layout_constraintTop_toBottomOf="@id/tv_article" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_task"
+        android:layout_width="86dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/home_icon_task"
+        app:layout_constraintStart_toStartOf="@id/btn_back"
+        app:layout_constraintTop_toBottomOf="@id/iv_article" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_task"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:textColor="@color/cream"
+        android:textSize="18sp"
+        android:text="@string/task"
+        app:layout_constraintEnd_toEndOf="@id/iv_article"
+        app:layout_constraintStart_toEndOf="@id/iv_task"
+        app:layout_constraintTop_toTopOf="@id/iv_task" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:textColor="@color/cream"
+        android:text="@string/task_help_text"
+        app:layout_constraintBottom_toBottomOf="@id/iv_task"
+        app:layout_constraintEnd_toEndOf="@id/iv_article"
+        app:layout_constraintStart_toEndOf="@id/iv_task"
+        app:layout_constraintTop_toBottomOf="@id/tv_task" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import academy.bangkit.lanting.databinding.ActivityHomeBinding
 import academy.bangkit.lanting.databinding.LayoutHomeBinding
 import academy.bangkit.lanting.databinding.NavHeaderHomeBinding
 import academy.bangkit.lanting.ui.article.ArticleActivity
+import academy.bangkit.lanting.ui.help.HelpActivity
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
 import academy.bangkit.lanting.ui.recipe.RecipeActivity
 import academy.bangkit.lanting.ui.task.TaskActivity
@@ -15,6 +16,7 @@ import academy.bangkit.lanting.utils.ImageStorageManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Gravity
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -101,6 +103,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val mIntent = Intent(this, ProfilesActivity::class.java)
                 startActivity(mIntent)
                 finish()
+            }
+            R.id.nav_help -> {
+                val mIntent = Intent(this, HelpActivity::class.java)
+                startActivity(mIntent)
+            }
+            R.id.nav_language -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
             }
         }
         return false
