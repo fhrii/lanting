@@ -30,6 +30,8 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_baduta"
         app:layout_constraintEnd_toStartOf="@id/btn_bumil"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_choose_category" />
@@ -52,6 +54,8 @@
         android:layout_height="120dp"
         android:layout_marginHorizontal="12dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_bumil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_baduta"
         app:layout_constraintTop_toTopOf="@id/btn_baduta" />
@@ -74,6 +78,8 @@
         android:layout_height="120dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_busui"
         app:layout_constraintEnd_toEndOf="@id/btn_baduta"
         app:layout_constraintStart_toStartOf="@id/btn_baduta"
         app:layout_constraintTop_toBottomOf="@id/btn_baduta" />
@@ -95,6 +101,8 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_ibu"
         app:layout_constraintEnd_toEndOf="@id/btn_bumil"
         app:layout_constraintStart_toStartOf="@id/btn_bumil"
         app:layout_constraintTop_toTopOf="@id/btn_busui" />

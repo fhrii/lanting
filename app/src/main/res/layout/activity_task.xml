@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="560dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/img_article" />
+                    app:srcCompat="@drawable/img_task" />
 
                 <TextView
                     android:layout_width="match_parent"
