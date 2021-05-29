@@ -10,6 +10,7 @@ import academy.bangkit.lanting.utils.ImageStorageManager
 import academy.bangkit.lanting.utils.ResultState
 import academy.bangkit.lanting.utils.setVisible
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ class TaskImageActivity : AppCompatActivity() {
     private lateinit var taskImageAdapter: TaskImageAdapter
 
     private var foodImage: String? = null
+    private var image: Bitmap? = null
     private val foods = mutableMapOf<Int, Nutrition>()
 
     companion object {
@@ -43,37 +45,43 @@ class TaskImageActivity : AppCompatActivity() {
 
         setLayout()
 
-        viewModel.getFoods().observe(this) { result ->
-            when (result) {
-                is ResultState.Success -> {
-                    if (result.data.isEmpty()) {
-                        createToast(getString(TEXT_FAILED_EMPTY))
-                        setResultAndFinish(RESULT_CANCELED)
-                        return@observe
-                    }
+        image?.also {
+            viewModel.getFoods(it).observe(this) { result ->
+                when (result) {
+                    is ResultState.Success -> {
+                        if (result.data.isEmpty()) {
+                            createToast(getString(TEXT_FAILED_EMPTY))
+                            setResultAndFinish(RESULT_CANCELED)
+                            return@observe
+                        }
 
-                    result.data.forEach { food ->
-                        val neededNutrition = food.size[0]
-                            .let { Nutrition(0,
-                                0,
-                                DateHelper.todayTimeStamp(),
-                                food.name,
-                                it.value,
-                                it.energy,
-                                it.protein,
-                                it.fat,
-                                it.carbohydrate) }
-                        foods[food.id] = neededNutrition
+                        result.data.forEach { food ->
+                            val neededNutrition = food.size[0]
+                                .let { foodSize->
+                                    Nutrition(
+                                        0,
+                                        0,
+                                        DateHelper.todayTimeStamp(),
+                                        food.name,
+                                        foodSize.value,
+                                        foodSize.energy,
+                                        foodSize.protein,
+                                        foodSize.fat,
+                                        foodSize.carbohydrate
+                                    )
+                                }
+                            foods[food.id] = neededNutrition
+                        }
+                        taskImageAdapter.setFoods(result.data)
+                        setLoading(false)
                     }
-                    taskImageAdapter.setFoods(result.data)
-                    setLoading(false)
-                }
-                is ResultState.Error -> {
-                    createToast(getString(TEXT_FAILED))
-                    setResultAndFinish(RESULT_CANCELED)
-                }
-                is ResultState.Loading -> {
-                    Log.d(TAG, "onCreate: Loading")
+                    is ResultState.Error -> {
+                        createToast(getString(TEXT_FAILED))
+                        setResultAndFinish(RESULT_CANCELED)
+                    }
+                    is ResultState.Loading -> {
+                        Log.d(TAG, "onCreate: Loading")
+                    }
                 }
             }
         }
@@ -121,7 +129,7 @@ class TaskImageActivity : AppCompatActivity() {
             setLoading()
 
             foodImage?.let {
-                val image =
+                image =
                     ImageStorageManager.getImageFromInternalStorage(this@TaskImageActivity, it)
                 image?.let { bitmap -> ivFoodImage.setImageBitmap(bitmap) }
             }

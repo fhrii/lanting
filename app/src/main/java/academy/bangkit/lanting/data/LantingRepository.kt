@@ -12,16 +12,22 @@ import academy.bangkit.lanting.data.remote.mapper.FoodMapper
 import academy.bangkit.lanting.data.remote.mapper.RecipeMapper
 import academy.bangkit.lanting.data.remote.response.FoodTaskResponse
 import academy.bangkit.lanting.data.remote.response.RecipeResponse
+import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ResultState
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import kotlin.Exception
 
 class LantingRepository(
@@ -171,11 +177,19 @@ class LantingRepository(
         return recipesResult
     }
 
-    fun getFoodTask(): LiveData<ResultState<List<Food>>> {
+    fun getFoodTask(image: Bitmap): LiveData<ResultState<List<Food>>> {
         val foodsResult = MutableLiveData<ResultState<List<Food>>>()
         foodsResult.value = ResultState.Loading
 
-        apiService.getFoodTask().enqueue(object : Callback<List<FoodTaskResponse>> {
+        val imageStream = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.JPEG, 100, imageStream)
+        val imageByteArray = imageStream.toByteArray()
+        val requestBody =
+            imageByteArray.toRequestBody("image/*".toMediaTypeOrNull())
+        val fileName = DateHelper.generateFileName()
+        val body = MultipartBody.Part.createFormData("images", "$fileName.jpg", requestBody)
+
+        apiService.uploadTaskImage(body).enqueue(object : Callback<List<FoodTaskResponse>> {
             override fun onResponse(
                 call: Call<List<FoodTaskResponse>>,
                 response: Response<List<FoodTaskResponse>>
@@ -191,7 +205,6 @@ class LantingRepository(
             override fun onFailure(call: Call<List<FoodTaskResponse>>, t: Throwable) {
                 foodsResult.value = ResultState.Error(Exception(t))
             }
-
         })
 
         return foodsResult

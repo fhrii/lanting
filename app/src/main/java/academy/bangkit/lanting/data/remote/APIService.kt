@@ -2,13 +2,18 @@ package academy.bangkit.lanting.data.remote
 
 import academy.bangkit.lanting.data.remote.response.FoodTaskResponse
 import academy.bangkit.lanting.data.remote.response.RecipeResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface APIService {
-    @GET("af5e0cb7-f782-4a70-b5ce-22440d9bbd79")
+    @GET("resep")
     fun getRecipes(): Call<List<RecipeResponse>>
 
-    @GET("2ea3ef7b-7eb7-469a-817a-303dc71c509e")
-    fun getFoodTask(): Call<List<FoodTaskResponse>>
+    @Multipart
+    @POST("detect")
+    fun uploadTaskImage(@Part image: MultipartBody.Part): Call<List<FoodTaskResponse>>
 }
