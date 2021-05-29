@@ -8,16 +8,16 @@ import academy.bangkit.lanting.data.model.Recipe
 object DummyData {
     fun getArticles() = listOf(
         Article(
-            "Jaga Asupan Makanan Anak ala Emak-emak 'Omaba'",
-            "30 Maret 2021",
-            "https://akcdn.detik.net.id/community/media/visual/2021/03/30/omaba-bandung-2_169.jpeg?q=100",
-            "https://news.detik.com/berita-jawa-barat/d-5513369/jaga-asupan-makanan-anak-ala-emak-emak-omaba?_ga=2.190147115.1486240901.1621254591-1696731506.1620227856"
+            "Berat Badan Janin Dalam Rahim",
+            "07 October",
+            "https://webicdn.com/sdirmember/2/1257/produk/cf23s.jpeg",
+            "http://draldi.com/berat-badan-janin-dalam-rahim-detail-405093.html"
         ),
         Article(
-            "Tertinggi se-Jatim, Angka Kematian Ibu dan Bayi di Jember Disorot Khofifah",
-            "2 Maret 2021",
-            "https://cdnv.detik.com/videoservice/AdminTV/2021/03/02/84737b9cb31548ddbf7e9da949c5643d-20210302211934-0s.jpg?q=100",
-            "https://20.detik.com/detikflash/20210302-210302129/tertinggi-se-jatim-angka-kematian-ibu-dan-bayi-di-jember-disorot-khofifah"
+            "Kurva Pertumbuhan WHO",
+            "2006",
+            "http://idai.or.id/wp-content/uploads/2013/05/Tabel-Growth-Chart-WHO-539x305.jpg",
+            "https://www.idai.or.id/professional-resources/kurva-pertumbuhan/kurva-pertumbuhan-who"
         )
     )
 

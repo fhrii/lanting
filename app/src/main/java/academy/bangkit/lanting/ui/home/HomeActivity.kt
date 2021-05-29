@@ -13,6 +13,7 @@ import academy.bangkit.lanting.ui.task.TaskActivity
 import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ImageStorageManager
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
@@ -79,6 +80,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             btnTask.setOnClickListener {
                 val mIntent = Intent(this@HomeActivity, TaskActivity::class.java)
+                startActivity(mIntent)
+            }
+            btnLearnMore.setOnClickListener {
+                val mIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://republika.co.id/berita//qr98iw456/studi-satu-dari-tiga-bayi-indonesia-terdiagnosa-stunting")
+                )
                 startActivity(mIntent)
             }
 
