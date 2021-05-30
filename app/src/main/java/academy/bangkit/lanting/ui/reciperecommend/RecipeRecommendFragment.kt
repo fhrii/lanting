@@ -1,6 +1,7 @@
 package academy.bangkit.lanting.ui.reciperecommend
 
 import academy.bangkit.lanting.data.ProfilePreferences
+import academy.bangkit.lanting.data.model.ProfileCategory
 import academy.bangkit.lanting.databinding.FragmentRecipeRecommendBinding
 import academy.bangkit.lanting.ui.recipe.RecipeViewModel
 import academy.bangkit.lanting.utils.ResultState
@@ -59,8 +60,17 @@ class RecipeRecommendFragment : Fragment() {
         viewModel.recipes.observe(requireActivity()) { result ->
             when (result) {
                 is ResultState.Success -> {
-                    adapter.setRecipes(result.data)
-                    setDataLoading(false)
+                    profilePreferences.profile?.also { profile ->
+                        val newRecipes = result.data.filter {
+                            val category = when (profile.category) {
+                                ProfileCategory.BADUTA -> ProfileCategory.BADUTA
+                                else -> ProfileCategory.IBU
+                            }
+                            it.category == category
+                        }
+                        adapter.setRecipes(newRecipes)
+                        setDataLoading(false)
+                    }
                 }
                 is ResultState.Error -> {
                     Log.d(TAG, "setRecipes: ${result.exception}")
