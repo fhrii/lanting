@@ -66,9 +66,12 @@ class RecipeBudgetFragment : Fragment() {
         viewModel.recipes.observe(requireActivity()) { result ->
             when (result) {
                 is ResultState.Success -> {
-                    recipeBudgetViewModel.setRecipes(result.data)
-                    recipes = result.data
-                    setDataLoading(false)
+                    profilePreferences.profile?.also { profile ->
+                        val newRecipes = result.data.filter { it.category == profile.category }
+                        recipeBudgetViewModel.setRecipes(newRecipes)
+                        recipes = newRecipes
+                        setDataLoading(false)
+                    }
                 }
                 is ResultState.Error -> {
                     Log.d(TAG, "setRecipes: ${result.exception}")

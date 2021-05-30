@@ -21,6 +21,9 @@ data class RecipeResponse(
     @SerializedName("url")
     val imageUrl: String,
 
+    @SerializedName("kategori")
+    val category: String,
+
     @SerializedName("total_harga")
     val price: Int
 )
