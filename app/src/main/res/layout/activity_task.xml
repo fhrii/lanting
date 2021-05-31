@@ -49,7 +49,7 @@
                     android:layout_marginBottom="24dp"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="@string/article_text"
+                    android:text="@string/task_text"
                     android:textColor="@color/cream"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

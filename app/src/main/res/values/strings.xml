@@ -34,6 +34,7 @@
     <string name="recipe_budget_text">You will get some recipe by input your budget for get some combination recipe</string>
     <string name="_30000" translatable="false">30000</string>
     <string name="recipe_recommended_text">a collection of recipes that we recommend. swipe up for more</string>
+    <string name="task_text">Let\'s capture your food to control your daily nutrition!</string>
     <string name="article_text">Article about stunting that you should know. Want to see the article?</string>
     <string name="today">Today</string>
     <string name="gestational_age">Gestational age by month</string>
