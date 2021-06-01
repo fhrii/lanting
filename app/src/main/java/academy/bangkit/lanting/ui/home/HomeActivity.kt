@@ -6,6 +6,7 @@ import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.databinding.ActivityHomeBinding
 import academy.bangkit.lanting.databinding.LayoutHomeBinding
 import academy.bangkit.lanting.databinding.NavHeaderHomeBinding
+import academy.bangkit.lanting.ui.about.AboutActivity
 import academy.bangkit.lanting.ui.article.ArticleActivity
 import academy.bangkit.lanting.ui.help.HelpActivity
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
@@ -110,6 +111,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_language -> {
                 val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+            R.id.nav_about -> {
+                val mIntent = Intent(this, AboutActivity::class.java)
                 startActivity(mIntent)
             }
         }

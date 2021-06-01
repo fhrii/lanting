@@ -17,6 +17,7 @@
         android:theme="@style/Theme.Lanting"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".ui.about.AboutActivity"></activity>
         <activity android:name=".ui.help.HelpActivity" />
         <activity android:name=".ui.recipedetail.RecipeDetailActivity" />
         <activity android:name=".ui.taskimage.TaskImageActivity" />

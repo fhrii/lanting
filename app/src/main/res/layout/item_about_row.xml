@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="12dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_about_picture"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_about_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textColor="@color/cream"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_about_picture"
+        app:layout_constraintTop_toTopOf="@id/iv_about_picture" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_about_path"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cream"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tv_about_name"
+        app:layout_constraintStart_toStartOf="@id/tv_about_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_about_name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_about_univ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/cream"
+        app:layout_constraintEnd_toEndOf="@id/tv_about_name"
+        app:layout_constraintStart_toStartOf="@id/tv_about_name"
+        app:layout_constraintTop_toBottomOf="@id/tv_about_path" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
