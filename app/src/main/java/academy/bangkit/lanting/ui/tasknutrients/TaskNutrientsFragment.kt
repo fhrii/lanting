@@ -140,6 +140,6 @@ class TaskNutrientsFragment : Fragment() {
     }
 
     private fun withNutritionUnit(value: String, isNutrition: Boolean = false): String {
-        return if(!isNutrition)getString(R.string.nutrition_unit_g, value) else getString(R.string.nutrition_unit_kkal, value)
+        return if(!isNutrition)getString(R.string.nutrition_unit_g, value) else getString(R.string.nutrition_unit_cal, value)
     }
 }

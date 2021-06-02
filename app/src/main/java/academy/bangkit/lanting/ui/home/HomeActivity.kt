@@ -6,14 +6,18 @@ import academy.bangkit.lanting.data.model.Profile
 import academy.bangkit.lanting.databinding.ActivityHomeBinding
 import academy.bangkit.lanting.databinding.LayoutHomeBinding
 import academy.bangkit.lanting.databinding.NavHeaderHomeBinding
+import academy.bangkit.lanting.ui.about.AboutActivity
 import academy.bangkit.lanting.ui.article.ArticleActivity
+import academy.bangkit.lanting.ui.help.HelpActivity
 import academy.bangkit.lanting.ui.profiles.ProfilesActivity
 import academy.bangkit.lanting.ui.recipe.RecipeActivity
 import academy.bangkit.lanting.ui.task.TaskActivity
 import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ImageStorageManager
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Gravity
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -81,6 +85,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val mIntent = Intent(this@HomeActivity, TaskActivity::class.java)
                 startActivity(mIntent)
             }
+            btnLearnMore.setOnClickListener {
+                val mIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://republika.co.id/berita//qr98iw456/studi-satu-dari-tiga-bayi-indonesia-terdiagnosa-stunting")
+                )
+                startActivity(mIntent)
+            }
 
             tvHello.text = getString(R.string.hello_user, profile.name)
             tvDate.text = DateHelper.today()
@@ -93,6 +104,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val mIntent = Intent(this, ProfilesActivity::class.java)
                 startActivity(mIntent)
                 finish()
+            }
+            R.id.nav_help -> {
+                val mIntent = Intent(this, HelpActivity::class.java)
+                startActivity(mIntent)
+            }
+            R.id.nav_language -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+            R.id.nav_about -> {
+                val mIntent = Intent(this, AboutActivity::class.java)
+                startActivity(mIntent)
             }
         }
         return false

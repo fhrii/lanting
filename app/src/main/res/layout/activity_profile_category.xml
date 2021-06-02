@@ -7,6 +7,15 @@
     android:background="@color/green"
     tools:context=".ui.profilecategory.ProfileCategoryActivity">
 
+    <Space
+        android:id="@+id/space"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_choose_category"
         android:layout_width="0dp"
@@ -21,7 +30,8 @@
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="@id/btn_bumil"
         app:layout_constraintStart_toStartOf="@id/btn_baduta"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/btn_baduta"
+        android:layout_marginBottom="24dp"/>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_baduta"
@@ -29,10 +39,12 @@
         android:layout_height="120dp"
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bg_btn_green_dark"
-        app:layout_constraintEnd_toStartOf="@id/btn_bumil"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_choose_category" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_baduta"
+        app:layout_constraintBottom_toTopOf="@id/tv_baduta"
+        app:layout_constraintEnd_toStartOf="@id/space" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_baduta"
@@ -42,9 +54,9 @@
         android:maxLines="1"
         android:text="@string/baduta"
         android:textColor="@color/green_dark"
+        app:layout_constraintBottom_toTopOf="@id/space"
         app:layout_constraintEnd_toEndOf="@id/btn_baduta"
-        app:layout_constraintStart_toStartOf="@id/btn_baduta"
-        app:layout_constraintTop_toBottomOf="@id/btn_baduta" />
+        app:layout_constraintStart_toStartOf="@id/btn_baduta" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_bumil"
@@ -52,8 +64,9 @@
         android:layout_height="120dp"
         android:layout_marginHorizontal="12dp"
         android:background="@drawable/bg_btn_green_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_baduta"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_bumil"
+        app:layout_constraintStart_toEndOf="@id/space"
         app:layout_constraintTop_toTopOf="@id/btn_baduta" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -64,24 +77,27 @@
         android:maxLines="1"
         android:text="@string/bumil"
         android:textColor="@color/green_dark"
+        app:layout_constraintBottom_toBottomOf="@id/tv_baduta"
         app:layout_constraintEnd_toEndOf="@id/btn_bumil"
-        app:layout_constraintStart_toStartOf="@id/btn_bumil"
-        app:layout_constraintTop_toBottomOf="@id/btn_bumil" />
+        app:layout_constraintStart_toStartOf="@id/btn_bumil" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_busui"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_busui"
         app:layout_constraintEnd_toEndOf="@id/btn_baduta"
         app:layout_constraintStart_toStartOf="@id/btn_baduta"
-        app:layout_constraintTop_toBottomOf="@id/btn_baduta" />
+        app:layout_constraintTop_toBottomOf="@id/tv_baduta" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_busui"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:maxLines="1"
         android:text="@string/busui"
@@ -95,6 +111,8 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:background="@drawable/bg_btn_green_dark"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_ibu"
         app:layout_constraintEnd_toEndOf="@id/btn_bumil"
         app:layout_constraintStart_toStartOf="@id/btn_bumil"
         app:layout_constraintTop_toTopOf="@id/btn_busui" />
@@ -109,7 +127,7 @@
         android:textColor="@color/green_dark"
         app:layout_constraintEnd_toEndOf="@id/btn_ibu"
         app:layout_constraintStart_toStartOf="@id/btn_ibu"
-        app:layout_constraintTop_toBottomOf="@id/btn_ibu" />
+        app:layout_constraintTop_toTopOf="@id/tv_busui" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"

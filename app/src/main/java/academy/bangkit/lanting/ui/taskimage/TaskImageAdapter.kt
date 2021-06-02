@@ -16,7 +16,7 @@ class TaskImageAdapter : RecyclerView.Adapter<TaskImageAdapter.TaskImageViewHold
 
     companion object {
         @StringRes
-        private const val NUTRITION_WITH_KKAL = R.string.nutrition_unit_kkal
+        private const val NUTRITION_WITH_KKAL = R.string.nutrition_unit_cal
     }
 
     fun clearFoods() {

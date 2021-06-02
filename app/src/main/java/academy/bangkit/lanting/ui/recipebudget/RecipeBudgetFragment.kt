@@ -1,6 +1,7 @@
 package academy.bangkit.lanting.ui.recipebudget
 
 import academy.bangkit.lanting.data.ProfilePreferences
+import academy.bangkit.lanting.data.model.ProfileCategory
 import academy.bangkit.lanting.data.model.Recipe
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -66,9 +67,18 @@ class RecipeBudgetFragment : Fragment() {
         viewModel.recipes.observe(requireActivity()) { result ->
             when (result) {
                 is ResultState.Success -> {
-                    recipeBudgetViewModel.setRecipes(result.data)
-                    recipes = result.data
-                    setDataLoading(false)
+                    profilePreferences.profile?.also { profile ->
+                        val newRecipes = result.data.filter {
+                            val category = when (profile.category) {
+                                ProfileCategory.BADUTA -> ProfileCategory.BADUTA
+                                else -> ProfileCategory.IBU
+                            }
+                            it.category == category
+                        }.sortedBy { it.price }
+                        recipeBudgetViewModel.setRecipes(newRecipes)
+                        recipes = newRecipes
+                        setDataLoading(false)
+                    }
                 }
                 is ResultState.Error -> {
                     Log.d(TAG, "setRecipes: ${result.exception}")

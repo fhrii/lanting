@@ -8,20 +8,26 @@ import academy.bangkit.lanting.ui.taskimage.TaskImageActivity
 import academy.bangkit.lanting.utils.DateHelper
 import academy.bangkit.lanting.utils.ImageStorageManager
 import academy.bangkit.lanting.utils.ResultState
+import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class TaskActivity : AppCompatActivity() {
@@ -160,13 +166,22 @@ class TaskActivity : AppCompatActivity() {
             builder.setTitle(getString(R.string.choose_photo))
             builder.setItems(options) { _, item ->
                 if (options[item] == options[0]) {
-                    val values = ContentValues()
-                    imageUriCamera =
-                        contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                    val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    mIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCamera)
-                    Log.d(TAG, "setImageButton: $imageUriCamera")
-                    cameraLauncher.launch(mIntent)
+                    if (isStoragePermissionGranted()) {
+                        val values = ContentValues()
+                        imageUriCamera =
+                            contentResolver.insert(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                values
+                            )
+                        val mIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        mIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUriCamera)
+                        Log.d(TAG, "setImageButton: $imageUriCamera")
+                        cameraLauncher.launch(mIntent)
+                    } else {
+                        Toast.makeText(
+                            this, "Storage permission is revoked", Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 } else {
                     val mIntent =
                         Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -179,5 +194,27 @@ class TaskActivity : AppCompatActivity() {
 
     private fun setBackButton() {
         binding.btnBack.setOnClickListener { finish() }
+    }
+
+    private fun isStoragePermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Log.v(TAG, "Permission is granted")
+                true
+            } else {
+                Log.v(TAG, "Permission is revoked")
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG, "Permission is granted")
+            true
+        }
     }
 }
