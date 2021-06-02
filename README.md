@@ -1,7 +1,7 @@
 # Lanting
 <img src="https://img.shields.io/badge/platform-android-brightgreen"/>
 
-<div align="center" style="margin: 20px;"><img src="/readme/logo.png" width="250"/></div>
+<div align="center"><img src="/readme/logo.png" width="250"/></div>
 
 Lanting is an application used to control food nutrition for Mothers and Babies in an effort to prevent stunting cases in Indonesia. The way the app works is by calculating your nutritional needs and you can take a photo of your food to record the amount of nutrients in your food
 
