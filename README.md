@@ -1,42 +1,40 @@
-# lanting
-here we will explain the capstone project that we made, the project is called lanting with the theme Healthcare cares about the nutrition of pregnant women, and their babies. Here we apply several features, the first is the food recommendation feature based on the budget and based on our recommendations, then the next feature is to complete the nutritional needs of 2-year-old babies, mothers, pregnant women and breastfeeding mothers by using a food photo task equipped with machine learning to fulfill the data.
+# Lanting
+<img src="https://img.shields.io/badge/platform-android-brightgreen"/>
 
-## guide for using git
-- [download repository or clone to local computer](https://github.com/Firli-R/lanting/new/patch-1?readme=1#download-repository-or-clone-to-local-computer)
-- [update and upload changes to repository](https://github.com/Firli-R/lanting/new/patch-1?readme=1#update-and-upload-changes-to-repository)
+<div align="center"><img src="/readme/logo.png" width="250"/></div>
 
-## download repository or clone to local computer
-Download the repository to your computer using the git clone command. The repository url can be seen in the desired repository.
-we asume you already download a git , and then right click your mouse into your folder local anda type like down below in git command
+Lanting is an application used to control food nutrition for Mothers and Babies in an effort to prevent stunting cases in Indonesia. The way the app works is by calculating your nutritional needs and you can take a photo of your food to record the amount of nutrients in your food
 
-`git clone https://github.com/fhrii/lanting.git`
+## Installation
+Just clone this repository and import into Android Studio
 
-### example:
-![clone git](https://user-images.githubusercontent.com/69151942/120409456-24c1b380-c37b-11eb-9fd5-7f57eda5e231.PNG)
+## Screenshot
 
-## update and upload changes to repository
-Download the repository to your computer using the git clone command. The repository url can be seen in the desired repository.
-we asume you already download a git , and then right click your mouse into your folder local anda type like down below in git command
+### Getting Started
+<div><img src="/readme/01.jpg" width="200" alt="Getting Started" align="left"/><img src="/readme/02.jpg" width="200" alt="Getting Started"/></div>
 
-1. right click into your folder clone
+### Profile
+<div><img src="/readme/03.jpg" width="200" alt="Profile" align="left"/><img src="/readme/04.jpg" width="200" alt="Profile" align="left"/><img src="/readme/05.jpg" width="200" alt="Profile" align="left"/><img src="/readme/06.jpg" width="200" alt="Profile"/></div>
 
-    `$ cd lanting`
+### Home
+<div><img src="/readme/07.jpg" width="200" alt="Home" align="left"/><img src="/readme/08.jpg" width="200" alt="Home"/></div>
 
-2. change into your branch 
+### Recipe
+<div><img src="/readme/09.jpg" width="200" alt="Recipe" align="left"/><img src="/readme/10.jpg" width="200" alt="Recipe" align="left"/><img src="/readme/11.jpg" width="200" alt="Recipe"/></div>
 
-    `$ git checkout -b <your branch name>`
+### Article
+<div><img src="/readme/12.jpg" width="200" alt="Article" align="left"/><img src="/readme/13.jpg" width="200" alt="Article"/></div>
 
-3. add your change file
+### Task
+<div><img src="/readme/14.jpg" width="200" alt="Task" align="left"/><img src="/readme/15.jpg" width="200" alt="Task" align="left"/><img src="/readme/16.jpg" width="200" alt="Task" align="left"/><img src="/readme/17.jpg" width="200" alt="Task"/></div>
 
-    `git add <filename>`
+## Our team
+Fahri Ahmad Fachrudin
+Fitria Urbach
+Hafifsyah Rifaldi
+Syafniya Zilfah Aniesiy
+Muhamad Zulfikri
+Firli Subhi Ramadani
 
-4. Confirm file addition or change
-
-    `git commit -m "<commit message>"`
-5. send changes to repository
-
-    `git push origin <your branch name>`
-
-i assume that u already to push your branch into origin master ,so next step is create a pull request and compare with your origin master branch 
-### example:
-![pull request](https://user-images.githubusercontent.com/69151942/120416958-3f4e5980-c388-11eb-9726-486a77d8efd6.PNG)
+##License
+[MIT](/LICENSE "MIT")
