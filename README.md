@@ -29,12 +29,12 @@ Just clone this repository and import into Android Studio
 <div><img src="/readme/14.jpg" width="200" alt="Task" align="left"/><img src="/readme/15.jpg" width="200" alt="Task" align="left"/><img src="/readme/16.jpg" width="200" alt="Task" align="left"/><img src="/readme/17.jpg" width="200" alt="Task"/></div>
 
 ## Our team
-Fahri Ahmad Fachrudin
-Fitria Urbach
-Hafifsyah Rifaldi
-Syafniya Zilfah Aniesiy
-Muhamad Zulfikri
-Firli Subhi Ramadani
+- Fahri Ahmad Fachrudin
+- Fitria Urbach
+- Hafifsyah Rifaldi
+- Syafniya Zilfah Aniesiy
+- Muhamad Zulfikri
+- Firli Subhi Ramadani
 
-##License
+## License
 [MIT](/LICENSE "MIT")
